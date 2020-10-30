@@ -22,12 +22,11 @@ while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
 
-    frame = cv2.rectangle(frame,(100,200),(300,400),(255,255,255),10)
+    frame = cv2.rectangle(frame,(100,200),(350,450),(255,255,255),10)
     cv2.putText(frame, caractere,(50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1,(0, 255, 255),2,cv2.LINE_4)
 
     cv2.imshow('frame',frame)
-
-    frame = frame[100:300,200:400]
+    
     # Display the resulting frame
     key = cv2.waitKey(33)
     if key == ord('s'):
@@ -35,12 +34,12 @@ while(True):
    		for i in range(10):
    			for _ in range(4):
 				ret, frame = cap.read()
-			frame = cv2.rectangle(frame,(100,200),(300,400),(255,255,255),10)
+			frame = cv2.rectangle(frame,(100,200),(350,450),(255,255,255),10)
 			cv2.putText(frame, caractere,(50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1,(0, 255, 255),2,cv2.LINE_4)
 
 			cv2.imshow('frame',frame)
 
-			frame = frame[100:300,200:400]
+			frame = frame[200:450,100:350]
 			cv2.imwrite('DATASET/'+caractere+str(i)+'.jpg',frame)
 			i += 1
 		i = 0	
