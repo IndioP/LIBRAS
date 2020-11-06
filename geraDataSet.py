@@ -4,12 +4,24 @@ import os
 
 from string import ascii_lowercase
 
-try:
-    os.mkdir('DATASET')
-except OSError:
-    print ("Creation of the directory  failed" )
-else:
-    print ("Successfully created the directory")
+
+def show(frame):
+    frame = cv2.rectangle(frame,(100,200),(350,450),(255,255,255),10)
+    cv2.putText(frame, caractere,(50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1,(0, 255, 255),2,cv2.LINE_4)
+
+    cv2.imshow('frame',frame)
+
+def makeDir(str):
+    try:
+        os.mkdir(str)
+    except OSError:
+        print ("Creation of the directory  failed" )
+    else:
+        print ("Successfully created the directory")
+
+
+
+makeDir('DATASET')
 
 cap = cv2.VideoCapture(0)
 
@@ -18,32 +30,29 @@ i = 0
 
 alfabeto = iter(ascii_lowercase)
 caractere = next(alfabeto)
+makeDir('DATASET/'+caractere)
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
 
-    frame = cv2.rectangle(frame,(100,200),(350,450),(255,255,255),10)
-    cv2.putText(frame, caractere,(50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1,(0, 255, 255),2,cv2.LINE_4)
-
-    cv2.imshow('frame',frame)
+    show(frame)
     
     # Display the resulting frame
     key = cv2.waitKey(33)
     if key == ord('s'):
-   		print "saving cropped frame to dataset"
-   		for i in range(10):
+        print "saving cropped frame to dataset"
+        for i in range(10):
    			for _ in range(4):
 				ret, frame = cap.read()
-			frame = cv2.rectangle(frame,(100,200),(350,450),(255,255,255),10)
-			cv2.putText(frame, caractere,(50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1,(0, 255, 255),2,cv2.LINE_4)
-
-			cv2.imshow('frame',frame)
+			show(frame)
 
 			frame = frame[200:450,100:350]
-			cv2.imwrite('DATASET/'+caractere+str(i)+'.jpg',frame)
+			cv2.imwrite('DATASET/'+caractere+'/'+str(i)+'.jpg',frame)
 			i += 1
-		i = 0	
-		caractere = next(alfabeto)
+        i = 0	
+        caractere = next(alfabeto)
+        makeDir('DATASET/'+caractere)
+
 
     elif key & 0xFF == ord('q'):
         break
