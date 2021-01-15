@@ -9,7 +9,7 @@ from fastai.tabular.all import *
 
 path = Path()
 path.ls(file_exts='.pkl')
-learn_inf = load_learner(path/'modeloTabular.pkl')
+learn_inf = load_learner(path/'modeloTabularNovo.pkl')
 vocab = learn_inf.dls.vocab
 print(vocab)
 

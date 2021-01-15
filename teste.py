@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 #from fastai import *
 #from fastai import load_learner
 #import torch
@@ -12,16 +13,18 @@ from fastai.vision.widgets import *
 #print(learn_inf.dls.vocab)
 path = Path()
 path.ls(file_exts='.pkl')
-learn_inf = load_learner(path/'export.pkl')
+learn_inf = load_learner(path/'modelo2.pkl')
 learn_inf.dls.vocab
 #pred,pred_idx,probs = learn_inf.predict(img)
 
 cap = cv2.VideoCapture(0)
-
 while(True):
     ret, frame = cap.read()
-    frame = frame[100:320,frame.shape[1]//2-110:frame.shape[1]//2+110]
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frame = frame[100:150,100:150]
+    print(frame.shape)
+    #frame = cv2.resize(frame,(50,50))
+    #frame = frame.astype(np.uint8)
+    #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     pred,pred_idx,probs = learn_inf.predict(frame)
     #hide_output
     lbl_pred = widgets.Label()
